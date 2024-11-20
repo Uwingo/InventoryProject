@@ -1,0 +1,119 @@
+﻿<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="page-title">@Localizer["Analytics"]</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">@Localizer["Uwingo Academy"]</a></li>
+                            <li class="breadcrumb-item active">@Localizer["Dashboard"]</li>
+                        </ol>
+                    </div>
+                    <div class="col-auto align-self-center">
+                        <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                            <span class="ay-name" id="Day_Name">@Localizer["Today:"]</span>&nbsp;
+                            <span class="" id="Select_date">Jan 11</span>
+                            <i data-feather="calendar" class="align-self-center icon-xs ms-1"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-primary">
+                            <i data-feather="download" class="align-self-center icon-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-9">
+            <div class="row justify-content-center">
+                @await Component.InvokeAsync("BrandCount")
+                @await Component.InvokeAsync("Model")
+                @await Component.InvokeAsync("MeasurementUnit")
+                @await Component.InvokeAsync("Supplier")
+                @await Component.InvokeAsync("Consumable")
+                @await Component.InvokeAsync("ProductCount")
+                @await Component.InvokeAsync("ProductTypes")
+                @await Component.InvokeAsync("Warehouse") 
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4 class="card-title">@Localizer["Audience Overview"]</h4>
+                        </div>
+                        <div class="col-auto">
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @Localizer["This Year"]<i class="las la-angle-down ms-1"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">@Localizer["Today"]</a>
+                                    <a class="dropdown-item" href="#">@Localizer["Last Week"]</a>
+                                    <a class="dropdown-item" href="#">@Localizer["Last Month"]</a>
+                                    <a class="dropdown-item" href="#">@Localizer["This Year"]</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="">
+                        <div id="ana_dash_1" class="apex-charts"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @await Component.InvokeAsync("InventoryCard")
+</div>
+
+    <!--end row-->
+
+    @*<div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h4 class="card-title">Pages View by Users</h4>
+                        </div>
+                        <!--end col-->
+                        <div class="col-auto">
+                            <div class="dropdown">
+                                <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Today<i class="las la-angle-down ms-1"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#">Today</a>
+                                    <a class="dropdown-item" href="#">Yesterday</a>
+                                    <a class="dropdown-item" href="#">Last Week</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                    <!--end row-->
+                </div>
+                <!--end card-header-->
+            </div>
+            <!--end card-->
+           
+    </div>*@
+    <!--end row-->
+    <!--end row-->
+</div><!-- container -->
+
+@section styles{
+    <!-- jvectormap -->
+    <link href="~/lib/jvectormap/jquery-jvectormap-2.0.2.css" rel="stylesheet">
+}
+
+@section scripts{
+    <script src="~/lib/apex-charts/apexcharts.min.js"></script>
+    <script src="~/lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/lib/jvectormap/jquery-jvectormap-us-aea-en.js"></script>
+    <script src="~/js/pages/jquery.analytics_dashboard.init.js"></script>
+}

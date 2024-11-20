@@ -1,0 +1,23 @@
+﻿@model Tuple<List<Brand>, List<Model>>
+
+<div class="col-md-6 col-lg-3">
+    <div class="card report-card">
+        <div class="card-body">
+            <div class="row d-flex justify-content-center">
+                <div class="col">
+                    <p class="text-dark mb-0 fw-semibold">@Localizer["Models"]</p>
+                    <h3 class="m-0">@Model.Item2?.Count</h3>
+                    <p class="mb-0 text-truncate text-muted">
+                        <span class="text-success">
+                            <a href="@Url.Action("Index", "Model")" class="text-primary">@Localizer["Add Model"]</a>
+                    </p>
+                </div>
+                <div class="col-auto align-self-center">
+                    <div class="report-main-icon bg-light-alt">
+                        <i data-feather="clock" class="align-self-center text-muted icon-sm"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

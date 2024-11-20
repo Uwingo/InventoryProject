@@ -1,0 +1,262 @@
+2024-08-27T11:39:43.8934520+03:00  [ERR] Failed executing DbCommand ("17"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE;" (627a98df)
+2024-08-27T11:43:52.0714311+03:00  [ERR] Failed executing DbCommand ("28"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T11:47:45.0597527+03:00  [ERR] Failed executing DbCommand ("64"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T11:54:29.6669532+03:00  [ERR] Failed executing DbCommand ("8"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE;" (627a98df)
+2024-08-27T11:56:39.5426947+03:00  [ERR] Failed executing DbCommand ("23"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId] FOREIGN KEY ([ConsumableId]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId] FOREIGN KEY ([WarehouseId]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:00:56.3524181+03:00  [ERR] Failed executing DbCommand ("25"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId] FOREIGN KEY ([ConsumableId]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId] FOREIGN KEY ([WarehouseId]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:05:30.0664773+03:00  [ERR] Failed executing DbCommand ("28"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId] FOREIGN KEY ([ConsumableId]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId] FOREIGN KEY ([ProductId]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId] FOREIGN KEY ([WarehouseId]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:33:06.4675506+03:00  [ERR] Failed executing DbCommand ("10"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [AspNetRoles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);" (627a98df)
+2024-08-27T12:33:42.3553374+03:00  [ERR] Failed executing DbCommand ("22"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:35:35.7001213+03:00  [ERR] Failed executing DbCommand ("25"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:39:00.9768806+03:00  [ERR] Failed executing DbCommand ("25"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:40:05.9118092+03:00  [ERR] Failed executing DbCommand ("14"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:40:38.6506555+03:00  [ERR] Failed executing DbCommand ("26"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""CREATE TABLE [Inventories] (
+    [InventoryStockId] int NOT NULL IDENTITY,
+    [ProductId_FK] int NOT NULL,
+    [Stock] int NOT NULL,
+    [WarehouseId_FK] int NOT NULL,
+    [SerialNumber] nvarchar(max) NULL,
+    [BeginningWarrantyDate] datetime2 NOT NULL,
+    [EndingWarrantyDate] datetime2 NOT NULL,
+    [InventoryDescription] nvarchar(max) NULL,
+    [ConsumableId_FK] int NOT NULL,
+    [CreatedDate] datetime2 NULL,
+    [CreatedBy] nvarchar(max) NULL,
+    [LastModifiedDate] datetime2 NULL,
+    [LastModifiedBy] nvarchar(max) NULL,
+    [DeletedDate] datetime2 NULL,
+    [DeletedBy] nvarchar(max) NULL,
+    [IsActive] bit NOT NULL,
+    [IsDeleted] bit NOT NULL,
+    CONSTRAINT [PK_Inventories] PRIMARY KEY ([InventoryStockId]),
+    CONSTRAINT [FK_Inventories_Consumables_ConsumableId_FK] FOREIGN KEY ([ConsumableId_FK]) REFERENCES [Consumables] ([ConsumableId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Products_ProductId_FK] FOREIGN KEY ([ProductId_FK]) REFERENCES [Products] ([ProductId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE
+);" (627a98df)
+2024-08-27T12:43:11.0842262+03:00  [ERR] Failed executing DbCommand ("8"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE;" (627a98df)
+2024-08-27T12:43:49.1998863+03:00  [ERR] Failed executing DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE;" (627a98df)
+2024-08-27T12:44:02.1823447+03:00  [ERR] Failed executing DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE;" (627a98df)
+2024-08-27T12:44:45.5335629+03:00  [ERR] Failed executing DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE;" (627a98df)
+2024-08-27T12:55:11.5537249+03:00  [ERR] Failed executing DbCommand ("6"ms) [Parameters=[""], CommandType='Text', CommandTimeout='30']"
+""ALTER TABLE [Inventories] ADD CONSTRAINT [FK_Inventories_Warehouses_WarehouseId_FK] FOREIGN KEY ([WarehouseId_FK]) REFERENCES [Warehouses] ([WarehouseId]) ON DELETE CASCADE;" (627a98df)

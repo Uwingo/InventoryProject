@@ -1,0 +1,45 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Oops! Something went wrong";
+}
+
+<div class="container">
+    <h1 class="text-danger">Oops! Something went wrong.</h1>
+    <p class="lead">We're sorry, but an unexpected error occurred while processing your request.</p>
+
+    @if (Model.ShowRequestId)
+    {
+        <p class="text-muted">
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <hr />
+
+    <h3>For Developers</h3>
+    <p>If you are a developer and need more detailed information about this error, please ensure the application is running in the <strong>Development</strong> environment.</p>
+
+    <p class="text-muted">
+        You can enable the <strong>Development</strong> environment by setting the <strong>ASPNETCORE_ENVIRONMENT</strong> environment variable to <strong>Development</strong> and restarting the application.
+    </p>
+
+    <p class="text-warning">
+        <strong>Note:</strong> The <strong>Development</strong> environment should only be used for debugging purposes and not in production as it might expose sensitive information to end users.
+    </p>
+</div>
+
+<style>
+    .container {
+        margin-top: 50px;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+    }
+
+    hr {
+        margin: 30px 0;
+    }
+</style>

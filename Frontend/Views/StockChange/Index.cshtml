@@ -1,0 +1,150 @@
+﻿@model List<StockChangeViewModel>
+
+@{
+    ViewData["Title"] = "Stok Değişiklikleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    <link href="~/lib/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/datatables/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="page-title">@Localizer["Stok Değişiklikleri"]</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">@Localizer["Stok Değişiklikleri Yönetimi"]</a></li>
+                            <li class="breadcrumb-item active">@Localizer["Stok Değişiklikleri"]</li>
+                        </ol>
+                    </div>
+                    <div class="col-auto align-self-center">
+                        <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                            <span class="day-name" id="Day_Name">@Localizer["Bugün"]:</span>&nbsp;
+                            <span class="" id="Select_date">Jan 11</span>
+                            <i data-feather="calendar" class="align-self-center icon-xs ms-1"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-primary">
+                            <i data-feather="download" class="align-self-center icon-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@Localizer["Ürünler"]</h4>
+                    <p class="text-muted mb-0">@Localizer["Envanterleriniz"]</p>
+                </div>
+                <div class="card-body">
+                </div>
+                <div class="card-body">
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>@Localizer["StockChangeId"]</th>
+                                <th>@Localizer["Count"]</th>
+                                <th>@Localizer["IsTransfer"]</th>
+                                <th>@Localizer["WarehouseId_FK"]</th>
+                                <th>@Localizer["InventoryId_FK"]</th>
+                                <th>@Localizer["InventoryDes"]</th> @*İsim Değişiklikleri Yapılacak*@
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model is not null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.StockChange.StockChangeId</td>
+                                        <td>@item.StockChange.Count</td>
+                                        <td>@(item.StockChange.IsTransfer ? Localizer["Yes"] : Localizer["No"])</td>
+                                        <td>@item.warehouse</td>
+                                        <td>@item.inventories</td>
+                                        <td>@item.inventoriesDes</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+     <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables/buttons.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables/jszip.min.js"></script>
+    <script src="~/lib/datatables/pdfmake.min.js"></script>
+    <script src="~/lib/datatables/vfs_fonts.js"></script>
+    <script src="~/lib/datatables/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables/buttons.print.min.js"></script>
+    <script src="~/lib/datatables/buttons.colVis.min.js"></script>
+    <script src="~/lib/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/lib/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/js/pages/jquery.datatable.init.js"></script>
+    <script src="~/js/alert/create.js"></script>
+    <script src="~/js/alert/delete.js"></script>
+    <script src="~/js/alert/update.js"></script>
+    <script>
+        $('#sa-update').click(function () {
+            var stockChange = {
+                StockChangeId: document.getElementById("UpdateStockChangeId").value,
+                WarehouseId_FK: document.getElementById("UpdateWarehouseId_FK").value,
+                InventoryId_FK: document.getElementById("UpdateInventoryId_FK").value,
+                Count: document.getElementById("UpdateCount").value,
+                IsTransfer: document.getElementById("UpdateIsTransfer").checked // Checkbox olduğu varsayıldı
+            };
+
+            update('StockChange/Update/', stockChange, 'stockChange');
+        });
+
+        $('#sa-create').click(function () {
+            var stockChange = {
+                StockChangeId: 0, // Yeni ekleme için 0
+                WarehouseId_FK: document.getElementById("CreateWarehouseId_FK").value,
+                InventoryId_FK: document.getElementById("CreateInventoryId_FK").value,
+                Count: document.getElementById("CreateCount").value,
+                IsTransfer: document.getElementById("CreateIsTransfer").checked // Checkbox olduğu varsayıldı
+            };
+
+            console.log(stockChange);
+            create('StockChange/Create/', stockChange, 'stockChange');
+        });
+
+        $('#updateInventory').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var itemId = button.data('id');
+            var itemWarehouse = button.data('warehouse');
+            var itemInventory = button.data('inventory');
+            var itemCount = button.data('count');
+            var itemIsTransfer = button.data('istransfer');
+            var modal = $(this);
+
+            modal.find('.modal-body #UpdateStockChangeId').val(itemId);
+            modal.find('.modal-body #UpdateWarehouseId_FK').val(itemWarehouse);
+            modal.find('.modal-body #UpdateInventoryId_FK').val(itemInventory);
+            modal.find('.modal-body #UpdateCount').val(itemCount);
+            modal.find('.modal-body #UpdateIsTransfer').prop('checked', itemIsTransfer); // Checkbox durumunu ayarla
+        });
+    </script>
+
+    <script>
+        function Dele(t) {
+            deleted('StockChange/Delete/', t, 'stockChange');
+        }
+    </script>
+}
+   

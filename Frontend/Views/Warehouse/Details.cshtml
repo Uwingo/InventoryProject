@@ -1,0 +1,243 @@
+﻿@model Tuple<List<Inventory>, List<InventoryToWarehouse>>
+
+@{
+    ViewBag.Title = "Warehouse Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles {
+    <link href="~/lib/datatables/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/datatables/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-title-box">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="page-title">@Localizer["Depo Detayları"]</h4>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">@Localizer["Depo Detayları"]</a></li>
+                            <li class="breadcrumb-item active">@Localizer["Depo Detayları"]</li>
+                        </ol>
+                    </div>
+                    <div class="col-auto align-self-center">
+                        <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
+                            <span class="day-name" id="Day_Name">@Localizer["Bugün:"]</span>&nbsp;
+                            <span class="" id="Select_date">Jan 11</span>
+                            <i data-feather="calendar" class="align-self-center icon-xs ms-1"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-primary">
+                            <i data-feather="download" class="align-self-center icon-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@Localizer["Envanterler"]</h4>
+                    <p class="text-muted mb-0">@Localizer["Depoya Bağlı Envanter Verileri"]</p>
+                </div>
+                <div class="card-body">
+                    <div class="button-items">
+                        <a href="@Url.Action("Index", "Warehouse")" class="btn btn-secondary">@Localizer["Depolar"]</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                            <tr>
+                                <th>@Localizer["Serial Number"]</th>
+                                <th>@Localizer["Stock"]</th>
+                                <th>@Localizer["Product"]</th>
+                                <th>@Localizer["Beginning Warranty Date"]</th>
+                                <th>@Localizer["Ending Warranty Date"]</th>
+                                <th>@Localizer["Description"]</th>
+                                <th>@Localizer["Aktar"]</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Item1 != null)
+                            {
+                                foreach (var item in Model.Item1)
+                                {
+                                    <tr>
+                                        <td>@item.SerialNumber</td>
+                                        <td>@item.Stock</td>
+                                        <td>@item.ProductId_FK</td>
+                                        <td>@item.BeginningWarrantyDate.ToShortDateString()</td>
+                                        <td>@item.EndingWarrantyDate.ToShortDateString()</td>
+                                        <td>@item.InventoryDescription</td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateInventory" data-id="@item.InventoryStockId" data-stock="@item.Stock" data-currentwarehouseid="@item.WarehouseId_FK">
+                                                    
+                                                @Localizer["Aktar"]
+                                            </button>
+                                            @*<div style="display: inline-block;">
+                                    <button type="submit" class="btn btn-link text-reset fs-16 px-1" data-bs-toggle="modal" data-bs-target="#updateInventory" data-inventoryId="@item.InventoryStockId" data-name="@item.ModelName" data-brand="@item.BrandId_FK">
+                                                    <i class="mdi mdi-alert-octagram"></i>
+                                                </button>
+                                            </div>*@
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Güncelleme Modalı -->
+<div class="modal fade" id="updateInventory" tabindex="-1" aria-labelledby="updateInventoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateInventoryModalLabel">@Localizer["Envanter Güncelle"]</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Aktarılacak Depo</p>
+                <input type="hidden" id="updateInventoryStockId" />
+                <div class="mb-3">
+                    <label for="warehouseSelect" class="form-label">@Localizer["Yeni Depo Seçin"]</label>
+                    <select id="newWarehouseId" class="form-select">
+                        @if (Model.Item2 != null)
+                        {
+                            foreach (var warehouse in Model.Item2)
+                            {
+                                if (warehouse.WarehouseId != Model.Item1.FirstOrDefault()?.WarehouseId_FK)
+                                {
+                                    <option value="@warehouse.WarehouseId">@warehouse.WarehouseName</option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+                <div>
+                    <p>Aktarılacak Ürün Sayısı</p>
+                    <input type="number" id="transferStock"
+                           min="1"
+                           class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Kapat"]</button>
+                <button type="button" class="btn btn-primary" id="updateInventoryButton">@Localizer["Aktar"]</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/dataTables.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables/dataTables.buttons.min.js"></script>
+    <script src="~/lib/datatables/buttons.bootstrap5.min.js"></script>
+    <script src="~/lib/datatables/jszip.min.js"></script>
+    <script src="~/lib/datatables/pdfmake.min.js"></script>
+    <script src="~/lib/datatables/vfs_fonts.js"></script>
+    <script src="~/lib/datatables/buttons.html5.min.js"></script>
+    <script src="~/lib/datatables/buttons.print.min.js"></script>
+    <script src="~/lib/datatables/buttons.colVis.min.js"></script>
+    <script src="~/lib/datatables/dataTables.responsive.min.js"></script>
+    <script src="~/lib/datatables/responsive.bootstrap4.min.js"></script>
+    <script src="~/js/pages/jquery.datatable.init.js"></script>
+    <script src="~/js/alert/create.js"></script>
+    <script src="~/js/alert/delete.js"></script>
+    <script src="~/js/alert/update.js"></script>
+    <script>
+        function deleteWarehouse(id) {
+            if (confirm("@Localizer["Bu depo silinsin mi?"]")) {
+                $.ajax({
+                    url: '@Url.Action("Delete", "Warehouse")',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (result) {
+                        window.location.href = '@Url.Action("Index", "Warehouse")';
+                    },
+                    error: function (xhr, status, error) {
+                        alert("@Localizer["Depo silinirken bir hata oluştu."]");
+                    }
+                });
+            }
+        }
+        $(document).ready(function () {
+            $('#updateInventoryModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var inventoryId = button.data('inventory-id');
+                var currentWarehouseId = button.data('current-warehouse-id');
+
+                var modal = $(this);
+                modal.find('#inventoryId').val(inventoryId);
+                modal.find('#warehouseSelect').val(currentWarehouseId);
+            });
+
+            $('#updateInventoryButton').on('click', function () {
+                debugger;
+                var inventoryId = $('#updateInventoryStockId').val();
+                var lastWarehouseId = $('#updateWarehouseId').val();
+                var newWarehouseId = $('#newWarehouseId').val();
+                var parseWarehouse =null;
+                if(newWarehouseId!=0&&newWarehouseId!=null){
+                    parseWarehouse = parseInt(newWarehouseId);
+                }else{
+                    parseWarehouse = parseInt(lastWarehouseId);
+                }
+                var transferStock = $('#transferStock').val();
+                var maxVal = parseInt($('#transferStock').attr('max'));
+                var currentVal = parseInt(transferStock);
+                if (currentVal > maxVal) {
+                    $('#transferStock').val(maxVal); 
+                    return;
+                }
+                debugger;
+                var parseId = parseInt(inventoryId);
+                var parseStock = parseInt(transferStock);
+                var parseWarehouse = parseInt(newWarehouseId);
+                var inventory = {
+                    InventoryStockId: parseId,
+                    WarehouseId: parseWarehouse,
+                    Stock: parseStock
+                };
+
+                $.ajax({
+                    url: '@Url.Action("UpdateDetails", "Warehouse")',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(inventory),
+                    success: function (result) {
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        alert("@Localizer["Envanter güncellenirken bir hata oluştu: "]" + xhr.responseText);
+                    }
+                });
+            });
+            $('#sa-update').click(function () {
+                var model = {
+                    InventoryStockId: document.getElementById("updateInventoryStockId").value,
+                    WarehouseId: document.getElementById("updateWarehouseId").value
+                };
+                update('Warehouse/UpdateDetails/', model, 'warehouse');
+            });
+            $('#updateInventory').on('show.bs.modal', function (event) {
+                debugger;
+                var button = $(event.relatedTarget);
+                var itemId = button.data('id');
+                var itemStock = button.data('stock');
+                var warehouseId = button.data('currentwarehouseid');
+                var modal = $(this);
+                modal.find('.modal-body #updateInventoryStockId').val(itemId);
+                modal.find('.modal-body #updateWarehouseId').val(warehouseId);
+                modal.find('.modal-body #transferStock').attr('max', itemStock);
+            });
+        });
+    </script>
+}

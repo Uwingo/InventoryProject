@@ -1,0 +1,84 @@
+﻿@model Tuple<List<Inventory>, List<Product>, List<Warehouse>>
+
+<div class="col-lg-3">
+    <div class="card">
+        <div class="card-header">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h4 class="card-title">
+                        @Localizer["Inventory Information"]
+                        <i data-feather="calendar" class="align-self-center icon-xs me-1"></i>
+                    </h4>
+                </div>
+                <div class="col-auto">
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-sm btn-outline-light dropdown-toggle"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @Localizer["All"]<i class="las la-angle-down ms-1"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="#">@Localizer["Products"]</a>
+                            <a class="dropdown-item" href="#">@Localizer["Warehouses"]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive mt-2">
+                <table class="table border-dashed mb-0">
+                    <thead>
+                        <tr>
+                            <th>@Localizer["Product Name"]</th>
+                            <th class="text-end">@Localizer["Stock"]</th>
+                            <th class="text-end">@Localizer["Warehouse"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Item1 == null || !Model.Item1.Any())
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center">@Localizer["No inventory data available."]</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            var maxItemsToShow = 5;  // Sadece ilk 5 öğeyi göstermek için
+                            var itemCount = 0;
+
+                            foreach (var inventory in Model.Item1)
+                            {
+                                if (itemCount >= maxItemsToShow)
+                                {
+                                    break;
+                                }
+
+                                var product = Model.Item2.FirstOrDefault(p => p.ProductId == inventory.ProductId_FK);
+                                var warehouse = Model.Item3.FirstOrDefault(w => w.WarehouseId == inventory.WarehouseId_FK);
+
+                                var stockPercentage = (inventory.Stock / 100.0) * 100;
+                                <tr>
+                                    <td>@(product?.ProductName ?? "Unknown Product")</td>
+                                    <td class="text-end">@inventory.Stock</td>
+                                    <td class="text-end">@warehouse?.WarehouseName</td>
+                                </tr>
+
+                                itemCount++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Eğer gösterilen ürün sayısı belirlenen sınırdan fazla ise butonu göster -->
+            @if (Model.Item1 != null && Model.Item1.Count > 5)
+            {
+                <div class="d-flex justify-content-center mt-3">
+                    <a href="@Url.Action("Index", "inventory")" class="btn btn-primary">
+                        @Localizer["Go to Full Inventory Page"]
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
