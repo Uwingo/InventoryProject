@@ -6,7 +6,7 @@
             <div class="row align-items-center">
                 <div class="col">
                     <h4 class="card-title">
-                        @Localizer["Inventory Information"]
+                        @Localizer["InventoryInformation"]
                         <i data-feather="calendar" class="align-self-center icon-xs me-1"></i>
                     </h4>
                 </div>
@@ -29,7 +29,7 @@
                 <table class="table border-dashed mb-0">
                     <thead>
                         <tr>
-                            <th>@Localizer["Product Name"]</th>
+                            <th>@Localizer["ProductName"]</th>
                             <th class="text-end">@Localizer["Stock"]</th>
                             <th class="text-end">@Localizer["Warehouse"]</th>
                         </tr>
@@ -38,7 +38,7 @@
                         @if (Model.Item1 == null || !Model.Item1.Any())
                         {
                             <tr>
-                                <td colspan="4" class="text-center">@Localizer["No inventory data available."]</td>
+                                <td colspan="4" class="text-center">@Localizer["NoInventoryDataAvailable."]</td>
                             </tr>
                         }
                         else
@@ -58,7 +58,7 @@
 
                                 var stockPercentage = (inventory.Stock / 100.0) * 100;
                                 <tr>
-                                    <td>@(product?.ProductName ?? "Unknown Product")</td>
+                                    <td>@(product?.ProductName ?? Localizer["UnknownProduct"].Value)</td>
                                     <td class="text-end">@inventory.Stock</td>
                                     <td class="text-end">@warehouse?.WarehouseName</td>
                                 </tr>
@@ -75,7 +75,7 @@
             {
                 <div class="d-flex justify-content-center mt-3">
                     <a href="@Url.Action("Index", "inventory")" class="btn btn-primary">
-                        @Localizer["Go to Full Inventory Page"]
+                        @Localizer["GoToFullInventoryPage"]
                     </a>
                 </div>
             }

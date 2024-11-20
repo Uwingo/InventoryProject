@@ -15,15 +15,15 @@
             <div class="page-title-box">
                 <div class="row">
                     <div class="col">
-                        <h4 class="page-title">@Localizer["Depo Detayları"]</h4>
+                        <h4 class="page-title">@Localizer["WarehouseDetails"]</h4>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">@Localizer["Depo Detayları"]</a></li>
-                            <li class="breadcrumb-item active">@Localizer["Depo Detayları"]</li>
+                            <li class="breadcrumb-item"><a href="javascript:void(0);">@Localizer["WarehouseDetails"]</a></li>
+                            <li class="breadcrumb-item active">@Localizer["WarehouseDetails"]</li>
                         </ol>
                     </div>
                     <div class="col-auto align-self-center">
                         <a href="#" class="btn btn-sm btn-outline-primary" id="Dash_Date">
-                            <span class="day-name" id="Day_Name">@Localizer["Bugün:"]</span>&nbsp;
+                            <span class="day-name" id="Day_Name">@Localizer["Today:"]</span>&nbsp;
                             <span class="" id="Select_date">Jan 11</span>
                             <i data-feather="calendar" class="align-self-center icon-xs ms-1"></i>
                         </a>
@@ -39,25 +39,25 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">@Localizer["Envanterler"]</h4>
-                    <p class="text-muted mb-0">@Localizer["Depoya Bağlı Envanter Verileri"]</p>
+                    <h4 class="card-title">@Localizer["Inventories"]</h4>
+                    <p class="text-muted mb-0">@Localizer["InventoriesDataConnectedToWarehouse"]</p>
                 </div>
                 <div class="card-body">
                     <div class="button-items">
-                        <a href="@Url.Action("Index", "Warehouse")" class="btn btn-secondary">@Localizer["Depolar"]</a>
+                        <a href="@Url.Action("Index", "Warehouse")" class="btn btn-secondary">@Localizer["Warehouses"]</a>
                     </div>
                 </div>
                 <div class="card-body">
                     <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                         <thead>
                             <tr>
-                                <th>@Localizer["Serial Number"]</th>
+                                <th>@Localizer["SerialNumber"]</th>
                                 <th>@Localizer["Stock"]</th>
                                 <th>@Localizer["Product"]</th>
-                                <th>@Localizer["Beginning Warranty Date"]</th>
-                                <th>@Localizer["Ending Warranty Date"]</th>
+                                <th>@Localizer["BeginningWarrant Date"]</th>
+                                <th>@Localizer["EndingWarrantyDate"]</th>
                                 <th>@Localizer["Description"]</th>
-                                <th>@Localizer["Aktar"]</th>
+                                <th>@Localizer["Transfer"]</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,7 +75,7 @@
                                         <td>
                                             <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updateInventory" data-id="@item.InventoryStockId" data-stock="@item.Stock" data-currentwarehouseid="@item.WarehouseId_FK">
                                                     
-                                                @Localizer["Aktar"]
+                                                @Localizer["Transfer"]
                                             </button>
                                             @*<div style="display: inline-block;">
                                     <button type="submit" class="btn btn-link text-reset fs-16 px-1" data-bs-toggle="modal" data-bs-target="#updateInventory" data-inventoryId="@item.InventoryStockId" data-name="@item.ModelName" data-brand="@item.BrandId_FK">
@@ -99,14 +99,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="updateInventoryModalLabel">@Localizer["Envanter Güncelle"]</h5>
+                <h5 class="modal-title" id="updateInventoryModalLabel">@Localizer["UpdateInventory"]</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <p>Aktarılacak Depo</p>
                 <input type="hidden" id="updateInventoryStockId" />
                 <div class="mb-3">
-                    <label for="warehouseSelect" class="form-label">@Localizer["Yeni Depo Seçin"]</label>
+                    <label for="warehouseSelect" class="form-label">@Localizer["SelectNewWarehouse"]</label>
                     <select id="newWarehouseId" class="form-select">
                         @if (Model.Item2 != null)
                         {
@@ -128,8 +128,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Kapat"]</button>
-                <button type="button" class="btn btn-primary" id="updateInventoryButton">@Localizer["Aktar"]</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">@Localizer["Save"]</button>
+                <button type="button" class="btn btn-primary" id="updateInventoryButton">@Localizer["Transfer"]</button>
             </div>
         </div>
     </div>

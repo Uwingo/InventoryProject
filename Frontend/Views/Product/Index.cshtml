@@ -209,31 +209,31 @@
                     <input type="text" class="form-control" id="UpdateProductName" name="UpdateProductName" required>
                 </div>
                 <div class="form-group">
-                    <label for="item-name">@Localizer["Barkod"]</label>
+                    <label for="item-name">@Localizer["Barcode"]</label>
                     <input type="text" class="form-control" id="UpdateBarcode" name="UpdateBarcode">
                 </div>
                 <div class="form-group">
-                    <label for="item-name">@Localizer["Satın Alma Numarası"]</label>
+                    <label for="item-name">@Localizer["PurchaseNumber"]</label>
                     <input type="text" class="form-control" id="UpdatePurchaseNumber" name="UpdatePurchaseNumber">
                 </div>
                 <div class="form-group">
-                    <label for="item-name">@Localizer["Seri Numarası"]</label>
+                    <label for="item-name">@Localizer["SerialNumber"]</label>
                     <input type="text" class="form-control" id="UpdateSerialNumber" name="UpdateSerialNumber">
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="UpdateStatus">
-                    <label class="form-check-label" for="UpdateStatus">@Localizer["Durum"]</label>
+                    <label class="form-check-label" for="UpdateStatus">@Localizer["Status"]</label>
                 </div>
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" id="UpdateIsConsumable">
-                    <label class="form-check-label" for="UpdateIsConsumable">@Localizer["Sarf Mı?"]</label>
+                    <label class="form-check-label" for="UpdateIsConsumable">@Localizer["IsConsumable?"]</label>
                 </div>
                 <div class="form-group" id="UpdateProductCountDiv" style="display: none;">
-                    <label for="item-name">@Localizer["Miktar"]</label>
+                    <label for="item-name">@Localizer["Amount"]</label>
                     <input type="text" class="form-control" id="UpdateCount" name="UpdateCount" required>
                 </div>
                 <div class="form-group">
-                    <label for="item-name">@Localizer["Stok Numarası"]</label>
+                    <label for="item-name">@Localizer["StockNumber"]</label>
                     <input type="text" class="form-control" id="UpdateStockNumber" name="UpdateStockNumber">
                 </div>
 
@@ -248,7 +248,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="SupplierId_FK">@Localizer["Tedarikçi"]</label>
+                    <label for="SupplierId_FK">@Localizer["Supplier"]</label>
                     <select name="UpdateSupplierId_FK" class="form-select" id="UpdateSupplierId_FK">
                         <option value="0" selected="">Tedarikçi Seçiniz</option>
                         @foreach (var item in Model.Item3)
@@ -258,9 +258,9 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="ProductTypeId_FK">@Localizer["Ürün Tipi"]</label>
+                    <label for="ProductTypeId_FK">@Localizer["ProductType"]</label>
                     <select name="UpdateProductTypeId_FK" class="form-select" id="UpdateProductTypeId_FK">
-                        <option value="0" selected="">@Localizer["Ürün Tipi Seçiniz"]</option>
+                        <option value="0" selected="">@Localizer["SelectProductType"]</option>
                         @foreach (var item in Model.Item4)
                         {
                             <option value="@item.ProductTypeId">@item.ProductTypeName</option>
@@ -268,8 +268,8 @@
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="sa-update" class="btn btn-soft-primary btn-sm">@Localizer["Değişiklikleri Kaydet"]</button>
-                    <button type="button" class="btn btn-soft-secondary btn-sm" data-bs-dismiss="modal">@Localizer["Kapat"]</button>
+                    <button type="button" id="sa-update" class="btn btn-soft-primary btn-sm">@Localizer["SaveChanges"]</button>
+                    <button type="button" class="btn btn-soft-secondary btn-sm" data-bs-dismiss="modal">@Localizer["Close"]</button>
                 </div>
 
             </div>
