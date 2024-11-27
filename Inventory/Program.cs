@@ -38,7 +38,9 @@ builder.Services.AddMvc().AddViewLocalization().AddDataAnnotationsLocalization()
 builder.Services.AddAuthorization();
 builder.Services.AddLocalization();
 builder.Services.AddAuthentication();
-//builder.Services.ConfigureJWT(builder.Configuration);
+
+builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.ConfigureIdentity();
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -59,6 +61,12 @@ builder.Services.AddControllers()
             options.JsonSerializerOptions.PropertyNamingPolicy = null; // Disable camelCase
         });
 
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
 builder.Services.AddSwaggerGen();

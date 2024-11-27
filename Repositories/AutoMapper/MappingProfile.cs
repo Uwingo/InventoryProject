@@ -25,6 +25,7 @@ namespace Repositories.AutoMapper
             CreateMap<BrandDto, Brand>().ReverseMap(); 
             CreateMap<Brand, ConsumableDto>().ReverseMap();
             CreateMap<Product, ConsumableDto>().ReverseMap();
+            CreateMap<User, UserForRegistrationDTO>().ReverseMap();
         }
     }
 }

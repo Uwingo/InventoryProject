@@ -1,12 +1,16 @@
 ﻿using Entities.Model;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Repositories.Contracts;
 using Repositories.EFCore;
 using Services.Contracts;
 using Services.EFCore;
 using System.Reflection;
+using System.Text;
 
 namespace Inventory.Extension
 {
@@ -41,6 +45,7 @@ namespace Inventory.Extension
             services.AddScoped<IRepositoryBase<StockChange>, RepositoryBase<StockChange>>();
             services.AddScoped<IRepositoryBase<Supplier>, RepositoryBase<Supplier>>();
             services.AddScoped<IRepositoryBase<Warehouse>, RepositoryBase<Warehouse>>();
+
         }
         public static void ConfiguerServiceManager(this IServiceCollection services)
         { // service referanslar
@@ -53,68 +58,66 @@ namespace Inventory.Extension
             services.AddScoped<IServiceProductType, ServiceProductType>();
             services.AddScoped<IServiceInventory, ServiceInventory>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<Services.Contracts.IAuthenticationService, Services.EFCore.AuthenticationService>();
             services.AddScoped<IServiceStockChange, ServiceStockChange>();
             services.AddScoped<IServiceSupplier, ServiceSupplier>();
             services.AddScoped<IServiceWarehouse, ServiceWarehouse>();
         }
-        //public static void ConfigureIdentity(this IServiceCollection services)
-        //{
-        //    var builder = services.AddIdentity<User, IdentityRole>
-        //        (
-        //            opts =>
-        //            {
-        //                opts.Password.RequireDigit = true;
-        //                opts.Password.RequireLowercase = true;
-        //                opts.Password.RequireUppercase = true;
-        //                opts.Password.RequireNonAlphanumeric = true;
-        //                opts.Password.RequiredLength = 8;
+        public static void ConfigureIdentity(this IServiceCollection services)
+        {
+            var builder = services.AddIdentity<User, Role>
+                (
+                    opts =>
+                    {
+                        opts.Password.RequireDigit = true;
+                        opts.Password.RequireLowercase = true;
+                        opts.Password.RequireUppercase = true;
+                        opts.Password.RequireNonAlphanumeric = true;
+                        opts.Password.RequiredLength = 8;
 
-        //                opts.User.RequireUniqueEmail = true;
+                        opts.User.RequireUniqueEmail = true;
 
-        //            }
-        //        ).AddEntityFrameworkStores<RepositoryContext>()
-        //        .AddDefaultTokenProviders();
-        //}
+                    }
+                ).AddEntityFrameworkStores<RepositoryContext>()
+                .AddDefaultTokenProviders();
+        }
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             return services;
         }
 
-        //public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
-        //{
-        //    var jwtSettings = configuration.GetSection("JwtSettings");
-        //    var secretKey = jwtSettings["SecretKey"];
+        public static void ConfigureJWT(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = jwtSettings["SecretKey"];
 
-        //    services.AddAuthentication(options =>
-        //    {
-        //        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        //        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-        //    })
-        //        .AddCookie(options =>
-        //        {
-        //            options.LoginPath = "/User/Login";
-        //        })
-        //        .AddJwtBearer(options =>
-        //        {
-        //            var jwtSettings = configuration.GetSection("JwtSettings");
-        //            var secretKey = jwtSettings["SecretKey"];
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/User/Login";
+                })
+                .AddJwtBearer(options =>
+                {
+                    var jwtSettings = configuration.GetSection("JwtSettings");
+                    var secretKey = jwtSettings["SecretKey"];
 
-        //            options.TokenValidationParameters = new TokenValidationParameters
-        //            {
-        //                ValidateIssuer = true,
-        //                ValidateAudience = true,
-        //                ValidateLifetime = true,
-        //                ValidateIssuerSigningKey = true,
-        //                ValidIssuer = jwtSettings["ValidateIssue"],
-        //                ValidAudience = jwtSettings["ValidateAudience"],
-        //                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
-        //            };
-        //        });
-
-
-        //}
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jwtSettings["ValidateIssue"],
+                        ValidAudience = jwtSettings["ValidateAudience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                    };
+                });
+        }
 
 
     }

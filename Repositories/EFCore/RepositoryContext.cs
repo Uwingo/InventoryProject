@@ -1,5 +1,6 @@
 ﻿using Entities.Model;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +13,10 @@ using System.Threading.Tasks;
 
 namespace Repositories.EFCore
 {
-    public class RepositoryContext : IdentityDbContext
+    public class RepositoryContext : IdentityDbContext<User, Role, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
+
+
         //private readonly IHttpContextAccessor _httpContextAccessor;
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
@@ -25,6 +28,8 @@ namespace Repositories.EFCore
         public DbSet<InventoryStock> Inventories { get; set; }
         public DbSet<Consumable> Consumables { get; set; }
         public DbSet<Brand> Brands { get; set; }
+        public DbSet<User> Users { get; set; }
+        
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)
