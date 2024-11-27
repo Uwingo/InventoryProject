@@ -18,7 +18,7 @@ namespace Frontend.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string consumableUrl = "https://localhost:7215/api/Consumable/get-consumables";
+            string consumableUrl = "api/Consumable/get-consumables";
             string jsonResponse = await GetDatas(consumableUrl);
             var consumables = new List<Consumable>();
 
@@ -37,7 +37,7 @@ namespace Frontend.Components
 
         private async Task<string> GetDatas(string uri)
         {
-            var response = await _httpClient.GetAsync(uri);
+            var response = await GenericClient.Client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
                 return await response.Content.ReadAsStringAsync();
             return null;
