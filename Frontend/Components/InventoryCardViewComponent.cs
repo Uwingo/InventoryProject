@@ -17,9 +17,9 @@ namespace Frontend.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            string productUrl = "https://localhost:7215/api/Product/get-products";
-            string inventoryUrl = "https://localhost:7215/api/InventoryStock/get-inventories";
-            string warehouseUrl = "https://localhost:7215/api/Warehouse/get-warehouses";
+            string productUrl = "api/Product/get-products";
+            string inventoryUrl = "api/InventoryStock/get-inventories";
+            string warehouseUrl = "api/Warehouse/get-warehouses";
 
             var jsonResponseInventory = await GetDatas(inventoryUrl);
             var jsonResponseProduct = await GetDatas(productUrl);
@@ -46,7 +46,7 @@ namespace Frontend.Components
 
         private async Task<string> GetDatas(string uri)
         {
-            var response = await _httpClient.GetAsync(uri);
+            var response = await GenericClient.Client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
                 return await response.Content.ReadAsStringAsync();
             return null;

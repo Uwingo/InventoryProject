@@ -19,8 +19,8 @@ namespace Frontend.Components
 
             try
             {
-                string apiUrl = "https://localhost:7215/api/Brand/get-brands";
-                var response = await _httpClient.GetAsync(apiUrl);
+                string apiUrl = "api/Brand/get-brands";
+                var response = await GenericClient.Client.GetAsync(apiUrl);
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonResponse = await response.Content.ReadAsStringAsync();

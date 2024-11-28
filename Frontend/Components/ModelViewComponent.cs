@@ -17,8 +17,8 @@ namespace Frontend.ViewComponents
         {
             try
             {
-                string brandUrl = "https://localhost:7215/api/Brand/get-brands";
-                string modelUrl = "https://localhost:7215/api/Model/get-models";
+                string brandUrl = "api/Brand/get-brands";
+                string modelUrl = "api/Model/get-models";
 
                 var brands = await GetData<List<Brand>>(brandUrl);
                 var models = await GetData<List<Model>>(modelUrl);
@@ -33,7 +33,7 @@ namespace Frontend.ViewComponents
 
         private async Task<T> GetData<T>(string uri)
         {
-            var response = await _httpClient.GetAsync(uri);
+            var response = await GenericClient.Client.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
